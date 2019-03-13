@@ -52,7 +52,9 @@ export class ItemFBService {
   }
 
   updateTask(todo:Todo, id:string){
-    return this.todosCollection.doc(id).update(todo);
+    return this.todosCollection.doc(id).update(todo).then(()=>{
+      this.goBack();
+    });;
   }
 
   createTask(todo:Todo){
@@ -62,7 +64,15 @@ export class ItemFBService {
   }
   
   deleteTask(id:string){
-    return this.todosCollection.doc(id).delete();
+    return this.todosCollection.doc(id).delete().then(()=>{
+      this.goBack();
+    });;
+  }
+
+  filterTasks(value){
+    this.todos.subscribe(res => {
+      return res.filter( item => item.title.includes(value));
+    })
   }
 
   goBack(){

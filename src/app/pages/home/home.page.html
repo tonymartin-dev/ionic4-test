@@ -10,20 +10,21 @@
   <ion-searchbar debounce="700" (ionChange)="getItems($event)" placeholder="Filter by name" showCancelButton></ion-searchbar>
   <ion-list>
     <ion-text *ngIf="noResults">No results found<ion-icon name="sad"></ion-icon></ion-text>
-    <ion-item *ngFor="let task of items" [routerLink]="['/detail', {id: task.id}]">
-      <ion-icon name="create" slot="start"></ion-icon>
+    <ion-item *ngFor="let task of items">
+      <ion-icon name="create" slot="start"  [routerLink]="['/detail', {id: task.id}]"></ion-icon>
       <ion-label>
         {{task.title}}
         <ion-label>
           {{task.description}}
         </ion-label>
       </ion-label>
-      <ion-badge color="{{task.completa ? 'success' : 'danger'}}">
-        <ion-label>{{ task.completa ?  'Completa' : 'Incompleta'}}</ion-label>
+      <ion-badge color="{{task.completada ? 'success' : 'danger'}}">
+        <ion-label>{{ task.completada ?  'Completa' : 'Incompleta'}}</ion-label>
       </ion-badge>
       <ion-badge color="warning" *ngIf="task.urgente">
         <ion-label>Urgente</ion-label>
       </ion-badge>
+      <ion-icon name="medal" *ngIf="!task.completada" (click)="completeTask(task.id)"></ion-icon>
     </ion-item>
   </ion-list>
 </ion-content>

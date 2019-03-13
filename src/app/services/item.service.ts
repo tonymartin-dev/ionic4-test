@@ -115,7 +115,7 @@ export class ItemService {
               index: index
             });
           }
-          item.completa = true;
+          item.completada = true;
           resolve({
             msg: 'La tarea ha sido completada',
             id: completedTask.id,

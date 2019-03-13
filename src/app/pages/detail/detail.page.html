@@ -24,7 +24,7 @@
     </ion-item>
     <ion-item>
       <ion-label position="floating">Completado</ion-label>
-      <ion-checkbox slot="end" formControlName="urgente"></ion-checkbox>
+      <ion-checkbox slot="end" formControlName="completada"></ion-checkbox>
     </ion-item>
     <ion-button type="submit" expand="block" [disabled]="edit_item_form.invalid" *ngIf="isEdit">SAVE</ion-button>
     <ion-button type="submit" expand="block" [disabled]="edit_item_form.invalid" *ngIf="!isEdit">CREATE</ion-button>
