@@ -24,6 +24,7 @@ export class HomePage {
   //items: Array<any>;
   items: Array<Todo>;
   completeTask: Function;
+  deleteTask: Function;
   getItems: Function;
   isLoading: boolean;
   noResults: boolean;
@@ -62,7 +63,13 @@ export class HomePage {
         console.log('Task completed', res);
       })
 
-    }   
+    }
+
+    this.deleteTask = id => {
+      this.ItemFBService.deleteTask(id).then(res =>{
+        console.log('Task deleted: ', res);
+      })
+    }
 
     this.getItems = event => {
       console.log('Input value: ',event.target.value);

@@ -1,8 +1,6 @@
 <ion-header>
   <ion-toolbar color="primary">
     <ion-title>Ionic Blank</ion-title>
-    <ion-icon name="exit" (click)="AuthService.logout()"></ion-icon>
-    <ion-icon slot="end" name="add-circle" [routerLink]="['/detail']"></ion-icon>
   </ion-toolbar>
 </ion-header>
 
@@ -29,12 +27,25 @@
       <ion-item-options>
         <ion-item-option>
           <ion-icon name="medal" *ngIf="!task.completada" (click)="completeTask(task.id)"></ion-icon>
-          <ion-icon name="trash"></ion-icon>
+          <ion-icon name="trash" (click)="deleteTask(task.id)"></ion-icon>
         </ion-item-option>
       </ion-item-options>
 
     </ion-item-sliding>
   </ion-list>
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button>
+      <ion-icon name="settings"></ion-icon>
+    </ion-fab-button>
+    <ion-fab-list side="top">
+      <ion-fab-button [routerLink]="['/detail']"><ion-icon name="add"></ion-icon></ion-fab-button>
+    </ion-fab-list>
+    <ion-fab-list side="start">
+      <ion-fab-button (click)="AuthService.logout()"><ion-icon name="log-out"></ion-icon></ion-fab-button>
+    </ion-fab-list>
+  </ion-fab>
+
 </ion-content>
 
 <ion-footer>
