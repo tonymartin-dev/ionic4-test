@@ -1,0 +1,20 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>login</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+    <form [formGroup]="login_form" (ngSubmit)="submit(login_form.value)">
+      <ion-item>
+        <ion-label position="floating">User</ion-label>
+        <ion-input formControlName="user"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Password</ion-label>
+        <ion-input type="password" formControlName="password"></ion-input>
+      </ion-item>
+      <ion-button type="submit" expand="block" [disabled]="login_form.invalid">LOGIN</ion-button>
+      <ion-text *ngIf="logError">Login Errored</ion-text>
+    </form>
+</ion-content>

@@ -1,0 +1,35 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Ionic Blank</ion-title>
+    <ion-icon name="exit" (click)="AuthService.logout()"></ion-icon>
+    <ion-icon slot="end" name="add-circle" [routerLink]="['/detail']"></ion-icon>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-searchbar debounce="700" (ionChange)="getItems($event)" placeholder="Filter by name" showCancelButton></ion-searchbar>
+  <ion-list>
+    <ion-text *ngIf="noResults">No results found<ion-icon name="sad"></ion-icon></ion-text>
+    <ion-item *ngFor="let task of items" [routerLink]="['/detail', {id: task.id}]">
+      <ion-icon name="create" slot="start"></ion-icon>
+      <ion-label>
+        {{task.title}}
+        <ion-label>
+          {{task.description}}
+        </ion-label>
+      </ion-label>
+      <ion-badge color="{{task.completa ? 'success' : 'danger'}}">
+        <ion-label>{{ task.completa ?  'Completa' : 'Incompleta'}}</ion-label>
+      </ion-badge>
+      <ion-badge color="warning" *ngIf="task.urgente">
+        <ion-label>Urgente</ion-label>
+      </ion-badge>
+    </ion-item>
+  </ion-list>
+</ion-content>
+
+<ion-footer>
+    <ion-toolbar color="primary">
+      <ion-title>Footer</ion-title>
+    </ion-toolbar>
+</ion-footer>
