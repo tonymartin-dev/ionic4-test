@@ -10,22 +10,30 @@
   <ion-searchbar debounce="700" (ionChange)="getItems($event)" placeholder="Filter by name" showCancelButton></ion-searchbar>
   <ion-list>
     <ion-text *ngIf="noResults">No results found<ion-icon name="sad"></ion-icon></ion-text>
-    <ion-item *ngFor="let task of items">
-      <ion-icon name="create" slot="start"  [routerLink]="['/detail', {id: task.id}]"></ion-icon>
-      <ion-label>
-        {{task.title}}
+    <ion-item-sliding *ngFor="let task of items">
+      <ion-item>
+        <ion-icon name="create" slot="start"  [routerLink]="['/detail', {id: task.id}]"></ion-icon>
         <ion-label>
-          {{task.description}}
+          {{task.title}}
+          <ion-label>
+            {{task.description}}
+          </ion-label>
         </ion-label>
-      </ion-label>
-      <ion-badge color="{{task.completada ? 'success' : 'danger'}}">
-        <ion-label>{{ task.completada ?  'Completa' : 'Incompleta'}}</ion-label>
-      </ion-badge>
-      <ion-badge color="warning" *ngIf="task.urgente">
-        <ion-label>Urgente</ion-label>
-      </ion-badge>
-      <ion-icon name="medal" *ngIf="!task.completada" (click)="completeTask(task.id)"></ion-icon>
-    </ion-item>
+        <ion-badge color="{{task.completada ? 'success' : 'danger'}}">
+          <ion-label>{{ task.completada ?  'Completa' : 'Incompleta'}}</ion-label>
+        </ion-badge>
+        <ion-badge color="warning" *ngIf="task.urgente">
+          <ion-label>Urgente</ion-label>
+        </ion-badge>
+      </ion-item>
+      <ion-item-options>
+        <ion-item-option>
+          <ion-icon name="medal" *ngIf="!task.completada" (click)="completeTask(task.id)"></ion-icon>
+          <ion-icon name="trash"></ion-icon>
+        </ion-item-option>
+      </ion-item-options>
+
+    </ion-item-sliding>
   </ion-list>
 </ion-content>
 
