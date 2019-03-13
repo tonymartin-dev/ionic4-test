@@ -23,6 +23,7 @@ export class HomePage {
   prueba: String;
   //items: Array<any>;
   items: Array<Todo>;
+  originalItems:Array<any>;
   completeTask: Function;
   deleteTask: Function;
   getItems: Function;
@@ -34,26 +35,25 @@ export class HomePage {
       message: 'Loading'
     });
     await loading.present();
-    
+    this.ItemFBService.getTasks().subscribe( res => {
+      loading.dismiss();
+      this.items = res;
+      this.originalItems = [...res];
+      console.log('Items: ', res);
+    });
   }
 
   ngOnInit() {
 
-    var originalItems;
 
     //this.items = this.ItemService.getTasks();
-    this.ItemFBService.getTasks().subscribe( res => {
-      this.items = res;
-      originalItems = [...res];
-      console.log('Items: ', res)
-
-    });
+    this.presentLoading();
 
     console.log(this.items);
     console.log('Is logged in: ', this.AuthService.isLoggedIn);
 
     this.completeTask = id => {
-      var taskToComplete = originalItems.find(item => {
+      var taskToComplete = this.originalItems.find(item => {
         return item.id === id;
       });
       taskToComplete.completada = true;
@@ -61,7 +61,7 @@ export class HomePage {
       delete taskToComplete.id;
       this.ItemFBService.updateTask(taskToComplete, taskId).then(res =>{
         console.log('Task completed', res);
-      })
+      });
 
     }
 
@@ -75,9 +75,9 @@ export class HomePage {
       console.log('Input value: ',event.target.value);
       
       if(event.target.value.length === 0){
-        this.items = originalItems;
+        this.items = this.originalItems;
       } else {
-        var filteredItems = originalItems.filter( item => item.title.includes(event.target.value));
+        var filteredItems = this.originalItems.filter( item => item.title.includes(event.target.value));
         if(filteredItems.length == 0){
           this.noResults = true;
         } else {
